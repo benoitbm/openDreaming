@@ -2,7 +2,7 @@
 #include "Parser.hpp"
 
 Graphics::Graphics()
-	: wndname("Open Dreaming")
+	: wndname("Open Dreaming"), image(NULL), image2(NULL), key(' '), leave(true), word(NULL)
 {}
 
 Graphics::~Graphics()
@@ -23,15 +23,6 @@ CvScalar random_color(CvRNG* rng)
 	return CV_RGB(rouge, vert, bleu);
 }
 
-void drawMaison(IplImage* img, CvPoint pos, int size_x, int size_y, CvScalar color)
-{
-	int thickness = (rand() % 5) + 1;
-	cvRectangle(img, cvPoint(pos.x - size_x, pos.y - size_y), cvPoint(pos.x + size_x, pos.y + size_y), color, thickness, 8, 0);
-	cvLine(img, cvPoint(pos.x - size_x, pos.y - size_y), cvPoint(pos.x, pos.y - (2 * size_y)), color, thickness, 8, 0);
-	cvLine(img, cvPoint(pos.x, pos.y - (2 * size_y)), cvPoint(pos.x + size_x, pos.y - size_y), color, thickness, 8, 0);
-	cvRectangle(img, cvPoint(pos.x - size_x / 4, pos.y + size_y / 3), cvPoint(pos.x + size_x / 4, pos.y + size_y), color, thickness, 8, 0);
-}
-
 void Graphics::display()
 {
 	readFile();
@@ -41,86 +32,70 @@ void Graphics::display()
 	width = 480;
 	height = 240;
 
-	IplImage* image = cvCreateImage(cvSize(width, height), 8, 3);
-	IplImage* image2;
-
+	image = cvCreateImage(cvSize(width, height), 8, 3);
+	
 	cvNamedWindow(wndname, CV_WINDOW_NORMAL);
 	cvSetWindowProperty(wndname, CV_WND_PROP_FULLSCREEN, CV_WINDOW_FULLSCREEN);
 
-	bool leave = true;
-
-	// Permet de quitter le programme
-	char k = ' ';
-
-	// Permet l'affichage mot par mot d'une phrase
-	const char * temp = new const char ();
-
-	std::queue<std::string> text;
-
 	while (leave)
 	{		
-
 		text = recevoirPhrase();
+
 		if (text.empty())
 			break;
 
-		int line_type = CV_AA;
+		draw();	
+	}
+}
 
-		// Utiliser pour les boucles for
-		int i;
+void Graphics::draw()
+{
+	
+	int line_type = CV_AA;
 
-		CvPoint pt1, pt2;
+	width3 = width * 3;
+	height3 = height * 3;
 
-		CvSize sz;
-		CvPoint  ptt[6];
-		CvPoint* pt[2];
+	CvSize text_size;
 
-		CvFont font;
-		CvRNG rng;
-		int width3 = width * 3, height3 = height * 3;
-		CvSize text_size;
+	cvZero(image);
+	cvShowImage(wndname, image);
 
-		cvZero(image);
+	rng = aleatoire(width, 0);
+	
+	for (int i = 0; i < text.size(); i++)
+	{
+		pt1.x = cvRandInt(&rng) % width;
+		pt1.y = cvRandInt(&rng) % height;
+
+		// Taille des lettres, nombre de traits pour l'épaisseur
+		cvInitFont(&font,
+			cvRandInt(&rng) % 8,
+			(cvRandInt(&rng) % 100)*0.05 + 0.1,
+			(cvRandInt(&rng) % 100)*0.05 + 0.1,
+			(cvRandInt(&rng) % 10)*0.1,
+			cvRound(cvRandInt(&rng) % 2),
+			line_type);
+
+		word = text.front().c_str();
+
+		cvPutText(image, word, pt1, &font, random_color(&rng));
 		cvShowImage(wndname, image);
 
-		rng = aleatoire (width, 0);
-		pt[0] = &(ptt[0]);
-		pt[1] = &(ptt[3]);
+		text.pop();
 
-		for (i = 0; i < text.size(); i++)
+		// Permet de quitter la fonction
+		if (cvWaitKey(DELAY) >= 0)
 		{
-			pt1.x = cvRandInt(&rng) % width3 - width;
-			pt1.y = cvRandInt(&rng) % height3 - height;
+			key = cvWaitKey(80);
 
-			// Taille des lettres, nombre de traits pour l'épaisseur
-			cvInitFont( &font, 
-						cvRandInt(&rng) % 8,
-						(cvRandInt(&rng) % 100)*0.05 + 0.1, 
-						(cvRandInt(&rng) % 100)*0.05 + 0.1,
-						(cvRandInt(&rng) % 10)*0.1, 
-						cvRound(cvRandInt(&rng) % 2), 
-						line_type);
-
-			temp = text.front().c_str();
-
-			cvPutText(image, temp, pt1, &font, random_color(&rng));
-			cvShowImage(wndname, image);
-
-			text.pop();
-
-			// Permet de quitter la fonction
-			if (cvWaitKey(DELAY) >= 0)
+			if (int(key) == 27)
 			{
-				k = cvWaitKey(80);
-
-				if (int(k) == 27)
-				{	
-					leave=false;
-					break;
-				}
+				leave = false;
+				break;
 			}
-
-			Sleep(50);
 		}
+
+		Sleep(150);
 	}
 }
