@@ -9,5 +9,5 @@
 
 class Draw
 {
-	void drawRectangle(Point pos = Point(0, 0), int width, int height, CV_RGB color);
+	static void drawRectangle(Point pos = Point(0, 0), int width, int height, Scalar& color);
 };

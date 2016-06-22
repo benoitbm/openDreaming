@@ -1,6 +1,6 @@
 #include "Draw.hpp"
 
-void Draw::drawRectangle(Mat& img, Point pos, int width, int height, CV_RGB color)
+void Draw::drawRectangle(Mat& img, Point pos, int width, int height, Scalar& color)
 {
 	int thickness = (rand() % 5) + 1;
 	int line_type = 8;
