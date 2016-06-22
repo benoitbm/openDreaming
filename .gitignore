@@ -1,0 +1,6 @@
+*.tlog
+*.obj
+Release/Open Dreaming.exe
+*.log
+*.suo
+Open Dreaming.sdf
