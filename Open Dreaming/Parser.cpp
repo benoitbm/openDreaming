@@ -88,11 +88,16 @@ queue<string> recevoirPhrase()
 		queue<string> Phrase;
 		while (!finPhrase)
 		{
-			Phrase.push(histoire.front()); //On rajoute le premier mot de la file
-			histoire.pop(); //Et on l'enlève
+			if (histoire.empty())
+				finPhrase = true;
+			else
+			{
+				Phrase.push(histoire.front()); //On rajoute le premier mot de la file
+				histoire.pop(); //Et on l'enlève
 
-			string temp = Phrase.back();
-			finPhrase = (temp.at(temp.size() - 1) == '.' || temp.at(temp.size() - 1) == '?' || temp.at(temp.size() - 1) == '!');
+				string temp = Phrase.back();
+				finPhrase = (temp.at(temp.size() - 1) == '.' || temp.at(temp.size() - 1) == '?' || temp.at(temp.size() - 1) == '!');
+			}
 		}
 		return Phrase;
 	}
