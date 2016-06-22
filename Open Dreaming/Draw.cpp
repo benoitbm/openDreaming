@@ -26,12 +26,19 @@ void drawPolySphere(IplImage* img, CvPoint pos, int nbPts, int size, CvScalar co
 	std::cout << "Number of polygon vertices: " << nbPts << std::endl;
 
 	// draw the polygon 
-
-	cvPolyLine(img, &pts, &nbPts, 1,
-		true, 			// draw closed contour (i.e. joint end to start) 
+	int mode = rand() % 2 + 1;
+	if(mode == 1)
+		cvFillPoly(img, &pts, &nbPts, 1,
+			// draw closed contour (i.e. joint end to start) 
 		color,// colour RGB ordering (here = green) 
-		thickness, 		        // line thickness
-		CV_AA, 0);
+ 		        // line thickness
+		8, 0);
+	else
+		cvPolyLine(img, &pts, &nbPts, 1,
+			true, 			// draw closed contour (i.e. joint end to start) 
+			color,// colour RGB ordering (here = green) 
+			thickness, 		        // line thickness
+			8, 0);
 	delete [] pts;
 }
 
