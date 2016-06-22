@@ -80,23 +80,36 @@ void readFile()
 ///<returns> Renvoie une "queue" de strings. </returns>
 queue<string> recevoirPhrase()
 {
-	bool finPhrase = false;
-	queue<string> Phrase;
-	while (!finPhrase)
+	if (histoire.empty()) //On teste s'il reste du contenu à envoyer
+		return queue<string>(); // On renvoie une queue vide
+	else
 	{
-		Phrase.push(histoire.front()); //On rajoute le premier mot de la file
-		histoire.pop(); //Et on l'enlève
+		bool finPhrase = false;
+		queue<string> Phrase;
+		while (!finPhrase)
+		{
+			Phrase.push(histoire.front()); //On rajoute le premier mot de la file
+			histoire.pop(); //Et on l'enlève
 
-		string temp = Phrase.back();
-		cout << temp.at(temp.size()-1) << " == '.' ?" << endl;
-		finPhrase = temp.at(temp.size()-1) == '.';
-		cout << "Fin phrase = " << finPhrase << endl;
+			string temp = Phrase.back();
+			finPhrase = temp.at(temp.size() - 1) == '.';
+		}
+		return Phrase;
 	}
-
-	return Phrase;
 }
 
+///<summary>
+///La fonction recevoirMot() permet de récupérer le mot actuel du fichier.
+///</summary>
+///<returns> Renvoie un string. </returns>
 string recevoirMot()
 {
-	return "";
+	if (histoire.empty())
+		return "";
+	else
+	{
+		string mot = histoire.front();
+		histoire.pop();
+		return mot;
+	}
 }
