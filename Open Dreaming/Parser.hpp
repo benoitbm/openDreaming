@@ -31,5 +31,7 @@ class OpenFileDialog //Fonction Microsoft pour faire apparaître une fenêtre pour
 };
 
 void readFile();
+queue<string> recevoirPhrase();
+string recevoirMot();
 
 #endif

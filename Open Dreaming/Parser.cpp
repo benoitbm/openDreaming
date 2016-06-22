@@ -1,4 +1,5 @@
 #include "Parser.hpp"
+queue<string> histoire; //Variable globale contenant les mots
 
 ///<summary>
 ///Fonction pour ouvrir la fenêtre de dialogue pour choisir un fichier.
@@ -58,14 +59,9 @@ void readFile()
 
 	string nomfichier = OFD->FileName;
 
-	cout << "Fichier choisi : " + nomfichier << endl;
-
 	ifstream fichier;
 	fichier.open(nomfichier);
 
-	queue<string> histoire;
-
-	cout << "Fichier ouvert ?" << fichier.is_open() << endl;
 	if (fichier.is_open()) //On teste si le fichier est bien ouvert (et que l'utilisateur ne tente pas d'ouvrir autre chose)
 	{
 		string mots = "";
@@ -75,13 +71,32 @@ void readFile()
 	else
 		return; //TODO Proposer à l'utilisateur d'ouvrir à nouveau son fichier
 
-	while (!histoire.empty())
+	fichier.close(); 
+}
+
+///<summary>
+///La fonction recevoirPhrase() permet de récupérer la phrase actuelle du fichier.
+///</summary>
+///<returns> Renvoie une "queue" de strings. </returns>
+queue<string> recevoirPhrase()
+{
+	bool finPhrase = false;
+	queue<string> Phrase;
+	while (!finPhrase)
 	{
-		cout << histoire.front() << endl;
-		cout << "Contenu : " << histoire.size() << endl << endl;
-		histoire.pop();
+		Phrase.push(histoire.front()); //On rajoute le premier mot de la file
+		histoire.pop(); //Et on l'enlève
+
+		string temp = Phrase.back();
+		cout << temp.at(temp.size()-1) << " == '.' ?" << endl;
+		finPhrase = temp.at(temp.size()-1) == '.';
+		cout << "Fin phrase = " << finPhrase << endl;
 	}
 
-	fichier.close(); 
-	system("pause");
+	return Phrase;
+}
+
+string recevoirMot()
+{
+	return "";
 }
