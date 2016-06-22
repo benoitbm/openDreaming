@@ -40,7 +40,7 @@ void affichage()
 	cvNamedWindow(wndname, 1);
 
 	int var = 1;
-	music.play();
+
 	while (var == 1)
 	{
 		int alea = aleatoire(5, 0);
@@ -73,26 +73,27 @@ void affichage()
 		arr[0] = 3;
 		arr[1] = 3;
 
-			for (i = 1; i < NUMBER*timer; i++)
-			{
-				pt1.x = cvRandInt(&rng) % width3 - width;
-				pt1.y = cvRandInt(&rng) % height3 - height;
+		for (i = 1; i < NUMBER*timer; i++)
+		{
+			pt1.x = cvRandInt(&rng) % width3 - width;
+			pt1.y = cvRandInt(&rng) % height3 - height;
 
-				cvInitFont(&font, cvRandInt(&rng) % 8,
-					(cvRandInt(&rng) % 100)*0.05 + 0.1, (cvRandInt(&rng) % 100)*0.05 + 0.1,
-					(cvRandInt(&rng) % 5)*0.1, cvRound(cvRandInt(&rng) % 10), line_type);
+			cvInitFont(&font, cvRandInt(&rng) % 8,
+				(cvRandInt(&rng) % 100)*0.05 + 0.1, (cvRandInt(&rng) % 100)*0.05 + 0.1,
+				(cvRandInt(&rng) % 5)*0.1, cvRound(cvRandInt(&rng) % 10), line_type);
 
-				cvPutText(image, " Sons et couleurs ", pt1, &font, random_color(&rng));
-				cvShowImage(wndname, image);
-				if (cvWaitKey(DELAY) >= 0)
-					Sleep(500);
-			}
+			cvPutText(image, " Sons et couleurs ", pt1, &font, random_color(&rng));
+			cvShowImage(wndname, image);
+			if (cvWaitKey(DELAY) >= 0)
+				Sleep(500);
+		}
 
-	// Wait for a key stroke; the same function arranges events processing
-	cvWaitKey(0);
-	cvReleaseImage(&image);
-	cvReleaseImage(&image2);
-	cvDestroyWindow(wndname);
+		// Wait for a key stroke; the same function arranges events processing
+		cvWaitKey(0);
+		cvReleaseImage(&image);
+		cvReleaseImage(&image2);
+		cvDestroyWindow(wndname);
+	}
 }
 
 int main(int argc, char** argv)
