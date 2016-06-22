@@ -7,7 +7,4 @@
 #include <time.h>
 #include <string>
 
-class Draw
-{
-	static void drawRectangle(Point pos = Point(0, 0), int width, int height, Scalar& color);
-};
+void drawMaison(IplImage* img, CvPoint pos, int size_x, int size_y, CvScalar color);
