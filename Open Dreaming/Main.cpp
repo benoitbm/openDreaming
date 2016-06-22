@@ -15,7 +15,7 @@
 
 #define NUMBER 100
 #define DELAY 5
-char wndname[] = "Projet M4202 - BIRABEN BIANCHI Hugo";
+char wndname[] = "Open Dreaming";
 
 
 int aleatoire(int x, int i)
