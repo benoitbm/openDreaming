@@ -92,7 +92,7 @@ queue<string> recevoirPhrase()
 			histoire.pop(); //Et on l'enlève
 
 			string temp = Phrase.back();
-			finPhrase = temp.at(temp.size() - 1) == '.';
+			finPhrase = (temp.at(temp.size() - 1) == '.' || temp.at(temp.size() - 1) == '?' || temp.at(temp.size() - 1) == '!');
 		}
 		return Phrase;
 	}
