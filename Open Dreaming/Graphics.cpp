@@ -1,5 +1,6 @@
 #include "Graphics.hpp"
 #include "Parser.hpp"
+#include "Draw.hpp"
 
 Graphics::Graphics()
 	: wndname("Open Dreaming"), image(NULL), image2(NULL), key(' '), leave(true), word(NULL)
@@ -78,7 +79,17 @@ void Graphics::draw()
 			line_type);
 
 		word = text.front().c_str();
+		string tempcompare = text.front();
+		string templower = "";
 
+		for (int i = 0; i < tempcompare.size(); ++i)
+			templower += tolower(tempcompare.at(i));
+
+		if (templower.compare("maison") == 0)
+		{
+
+			drawMaison(image, cvPoint(width / 2, height / 2), width / 6, height / 6, random_color(&rng));
+		}
 		cvPutText(image, word, pt1, &font, random_color(&rng));
 		cvShowImage(wndname, image);
 
