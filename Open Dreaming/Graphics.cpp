@@ -10,6 +10,12 @@ Graphics::~Graphics()
 	delete wndname;
 }
 
+///<summary>
+///Fonction pour générer un nombre aléatoire.
+///</summary>
+///<param name="x">Maximum du nombre à générer</param>
+///<param name="i">Minimum du nombre à générer</param>
+///<returns> Renvoie un int généré aléatoirement. </returns>
 int aleatoire(int x, int i)
 {
 	return rand() % x + i;
@@ -40,6 +46,7 @@ void Graphics::display()
 	while (leave)
 	{		
 		text = recevoirPhrase();
+		cout << text.size() << endl;
 
 		if (text.empty())
 			break;
@@ -61,28 +68,46 @@ void Graphics::draw()
 	cvZero(image);
 	cvShowImage(wndname, image);
 
-	rng = aleatoire(width, 0);
+	rng = aleatoire(.9*width, 0);
 	
-	for (int i = 0; i < text.size(); i++)
+	
+	for (int i = 0; i < text.size(); i += 0)
 	{
-		pt1.x = cvRandInt(&rng) % width;
-		pt1.y = cvRandInt(&rng) % height;
+		float hauteur_lettre = (cvRandInt(&rng) % 60)*0.05+.2;
+		float largeur_lettre = (cvRandInt(&rng) % 60)*0.05+.2;
 
 		// Taille des lettres, nombre de traits pour l'épaisseur
 		cvInitFont(&font,
 			cvRandInt(&rng) % 8,
-			(cvRandInt(&rng) % 100)*0.05 + 0.1,
-			(cvRandInt(&rng) % 100)*0.05 + 0.1,
+			hauteur_lettre, 
+			largeur_lettre, 
 			(cvRandInt(&rng) % 10)*0.1,
 			cvRound(cvRandInt(&rng) % 2),
 			line_type);
 
-		word = text.front().c_str();
+		string mot = text.front();
+		text.pop();
+
+		word = mot.c_str();
+
+		float taille_l = largeur_lettre * mot.length();
+		
+		pt1.x = cvRandInt(&rng) % width;
+		cout << pt1.x*largeur_lettre << " > " << .9*width << "?" << endl;
+		while (pt1.x * largeur_lettre > .9*width && pt1.x > 0)
+			pt1.x /= 1.5;
+
+		pt1.y = cvRandInt(&rng) % height;
+		cout << pt1.y << " < " << 50*hauteur_lettre << " ?" << endl;
+		while (pt1.y < 50*hauteur_lettre)
+			pt1.y++;
+
+		cout << mot << endl;
+		cout << "x = " << pt1.x << endl;
+		cout << "y = " << pt1.y << endl << endl;
 
 		cvPutText(image, word, pt1, &font, random_color(&rng));
 		cvShowImage(wndname, image);
-
-		text.pop();
 
 		// Permet de quitter la fonction
 		if (cvWaitKey(DELAY) >= 0)
@@ -96,6 +121,7 @@ void Graphics::draw()
 			}
 		}
 
-		Sleep(150);
+		//system("pause");
+		Sleep(400 + aleatoire(350,0));
 	}
 }
