@@ -25,6 +25,8 @@ CvScalar random_color(CvRNG* rng)
 
 void Graphics::display()
 {
+	readFile();
+	
 	srand(time(NULL));
 	
 	width = 480;
@@ -44,13 +46,14 @@ void Graphics::display()
 	// Permet l'affichage mot par mot d'une phrase
 	const char * temp = new const char ();
 
-
 	std::queue<std::string> text;
 
 	while (leave)
 	{		
 
-		text = recevoir_phrase();
+		text = recevoirPhrase();
+		if (text.empty())
+			break;
 
 		int line_type = CV_AA;
 
