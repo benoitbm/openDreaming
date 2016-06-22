@@ -1,5 +1,6 @@
 #include "Graphics.hpp"
 #include "Parser.hpp"
+#include "Draw.hpp"
 
 Graphics::Graphics()
 	: wndname("Open Dreaming")
@@ -23,6 +24,7 @@ CvScalar random_color(CvRNG* rng)
 	return CV_RGB(rouge, vert, bleu);
 }
 
+/*
 void drawMaison(IplImage* img, CvPoint pos, int size_x, int size_y, CvScalar color)
 {
 	int thickness = (rand() % 5) + 1;
@@ -30,7 +32,7 @@ void drawMaison(IplImage* img, CvPoint pos, int size_x, int size_y, CvScalar col
 	cvLine(img, cvPoint(pos.x - size_x, pos.y - size_y), cvPoint(pos.x, pos.y - (2 * size_y)), color, thickness, 8, 0);
 	cvLine(img, cvPoint(pos.x, pos.y - (2 * size_y)), cvPoint(pos.x + size_x, pos.y - size_y), color, thickness, 8, 0);
 	cvRectangle(img, cvPoint(pos.x - size_x / 4, pos.y + size_y / 3), cvPoint(pos.x + size_x / 4, pos.y + size_y), color, thickness, 8, 0);
-}
+}*/
 
 void Graphics::display()
 {
@@ -100,8 +102,21 @@ void Graphics::display()
 						(cvRandInt(&rng) % 10)*0.1, 
 						cvRound(cvRandInt(&rng) % 2), 
 						line_type);
-
+			
 			temp = text.front().c_str();
+			
+			string tempcompare = text.front();
+			string templower = "";
+
+			for (int i = 0; i < tempcompare.size(); ++i)
+				templower += tolower(tempcompare.at(i));
+
+			if (templower.compare("maison") == 0)
+			{
+
+				drawMaison(image, cvPoint(width / 2, height / 2), width / 6, height / 6, random_color(&rng));
+			}
+			
 
 			cvPutText(image, temp, pt1, &font, random_color(&rng));
 			cvShowImage(wndname, image);
@@ -120,7 +135,7 @@ void Graphics::display()
 				}
 			}
 
-			Sleep(50);
+			Sleep(200);
 		}
 	}
 }
