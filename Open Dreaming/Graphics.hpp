@@ -7,10 +7,10 @@
 #include <time.h>
 #include <string>
 #include <iostream>
+#include <queue>
 
 #define CV_NO_BACKWARD_COMPATIBILITY
 
-#define NUMBER 20
 #define DELAY 5
 
 struct Color
@@ -30,5 +30,5 @@ class Graphics
 
 		void color ();
 
-		void display (const char *);
+		void display ();
 };

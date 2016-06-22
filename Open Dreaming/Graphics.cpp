@@ -1,4 +1,5 @@
 #include "Graphics.hpp"
+#include "Parser.hpp"
 
 Graphics::Graphics()
 	: wndname("Open Dreaming")
@@ -22,7 +23,7 @@ CvScalar random_color(CvRNG* rng)
 	return CV_RGB(rouge, vert, bleu);
 }
 
-void Graphics::display(const char * text)
+void Graphics::display()
 {
 	srand(time(NULL));
 	
@@ -37,10 +38,20 @@ void Graphics::display(const char * text)
 
 	bool leave = true;
 
+	// Permet de quitter le programme
 	char k = ' ';
+
+	// Permet l'affichage mot par mot d'une phrase
+	const char * temp = new const char ();
+
+
+	std::queue<std::string> text;
 
 	while (leave)
 	{		
+
+		text = recevoir_phrase();
+
 		int line_type = CV_AA;
 
 		// Utiliser pour les boucles for
@@ -64,11 +75,12 @@ void Graphics::display(const char * text)
 		pt[0] = &(ptt[0]);
 		pt[1] = &(ptt[3]);
 
-		for (i = 1; i < NUMBER; i++)
+		for (i = 0; i < text.size(); i++)
 		{
 			pt1.x = cvRandInt(&rng) % width3 - width;
 			pt1.y = cvRandInt(&rng) % height3 - height;
 
+			// Taille des lettres, nombre de traits pour l'épaisseur
 			cvInitFont( &font, 
 						cvRandInt(&rng) % 8,
 						(cvRandInt(&rng) % 100)*0.05 + 0.1, 
@@ -77,8 +89,14 @@ void Graphics::display(const char * text)
 						cvRound(cvRandInt(&rng) % 2), 
 						line_type);
 
-			cvPutText(image, text, pt1, &font, random_color(&rng));
+			temp = text.front().c_str();
+
+			cvPutText(image, temp, pt1, &font, random_color(&rng));
 			cvShowImage(wndname, image);
+
+			text.pop();
+
+			// Permet de quitter la fonction
 			if (cvWaitKey(DELAY) >= 0)
 			{
 				k = cvWaitKey(80);
@@ -90,8 +108,7 @@ void Graphics::display(const char * text)
 				}
 			}
 
-			Sleep (50);
-
+			Sleep(50);
 		}
 	}
 }
