@@ -31,10 +31,12 @@ CvScalar random_color(CvRNG* rng)
 
 void Graphics::display()
 {
+	// Lit le fichier que l'utilisateur souhaite
 	readFile();
 	
 	srand(time(NULL));
 	
+	// Taille en pixel de l'image (même si l'affichage peut être plus grand)
 	width = 480;
 	height = 240;
 
@@ -42,6 +44,7 @@ void Graphics::display()
 	
 	cvNamedWindow(wndname, CV_WINDOW_NORMAL);
 	cvSetWindowProperty(wndname, CV_WND_PROP_FULLSCREEN, CV_WINDOW_FULLSCREEN);
+
 
 	while (leave)
 	{		
@@ -61,15 +64,14 @@ void Graphics::display()
 
 		draw();	
 	}
+
+	Sleep (500);
 }
 
-void Graphics::draw()
+void Graphics::drawRandomly()
 {
 
 	int line_type = CV_AA;
-
-	width3 = width * 3;
-	height3 = height * 3;
 
 	CvSize text_size;
 
@@ -116,6 +118,7 @@ void Graphics::draw()
 			cvRound(cvRandInt(&rng) % 2),
 			line_type);
 
+		// Affiche le mot
 		cvPutText(image, word, pt1, &font, random_color(&rng));
 		cvShowImage(wndname, image);
 
@@ -131,7 +134,94 @@ void Graphics::draw()
 			}
 		}
 
-		//system("pause");
-		Sleep(400 + aleatoire(350,0));
 	}
+
+	Sleep(500);
+}
+
+void Graphics::draw()
+{
+	int line_type = CV_AA;
+
+	CvSize text_size;
+
+	cvZero(image);
+	cvShowImage(wndname, image);
+
+	rng = aleatoire(width*1.5, 0);
+
+	bool beginLine = true;
+
+	unsigned char countLine = 0;
+
+	pt1.y = 10;
+
+	for (int i = 0; i < text.size(); i += 0)
+	{
+		
+		float hauteur_lettre = (cvRandInt(&rng) % 80)*0.02 + .2;
+		float largeur_lettre = (cvRandInt(&rng) % 80)*0.02 + .2;
+
+		cout << "H : " << hauteur_lettre << " L : " << largeur_lettre << endl;
+
+		string mot = text.front();
+		text.pop();
+
+		word = mot.c_str();
+
+		float taille_l = largeur_lettre * mot.length() * 0.02;	
+
+		// Taille des lettres, nombre de traits pour l'épaisseur
+		cvInitFont(&font,
+			cvRandInt(&rng) % 8,
+			hauteur_lettre,
+			largeur_lettre,
+			(cvRandInt(&rng) % 10)*0.1,
+			cvRound(cvRandInt(&rng) % 2),
+			line_type);
+
+		pt1.x += hauteur_lettre * mot.length()*30;
+
+		// Positionne les mots
+		if ((pt1.x + (taille_l * 100) > (0.9 * width)))
+		{
+			pt1.x = 5;
+			countLine++;
+			pt1.y += countLine * 20;
+		}
+		else if (beginLine == true)
+		{
+			pt1.x = 5;
+			countLine++;
+			beginLine = false;
+		}
+
+		// Affiche le mot
+		cvPutText(image, word, pt1, &font, random_color(&rng));
+		cvShowImage(wndname, image);
+
+		// Permet de quitter la fonction
+		if (cvWaitKey(DELAY) >= 0)
+		{
+			key = cvWaitKey(80);
+
+			if (int(key) == 27)
+			{
+				leave = false;
+				break;
+			}
+		}
+
+
+		if (text.size() == 0)
+		{
+			beginLine = true;
+			countLine = 0;
+			pt1.y = 10;
+		}
+
+		Sleep (150);
+	}
+
+	Sleep(500);
 }

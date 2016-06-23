@@ -1,16 +1,23 @@
 ﻿  Graphics.cpp
-Graphics.cpp(36): warning C4244: 'argument' : conversion de 'time_t' en 'unsigned int', perte possible de données
-Graphics.cpp(77): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
-Graphics.cpp(79): warning C4018: '<' : incompatibilité signed/unsigned
-Graphics.cpp(81): warning C4244: 'initialisation' : conversion de 'double' en 'float', perte possible de données
-Graphics.cpp(82): warning C4244: 'initialisation' : conversion de 'double' en 'float', perte possible de données
-Graphics.cpp(89): warning C4244: 'initialisation' : conversion de 'double' en 'float', perte possible de données
-Graphics.cpp(94): warning C4305: '/=' : troncation de 'double' à 'float'
-Graphics.cpp(72): warning C4101: 'text_size' : variable locale non référencée
+Graphics.cpp(37): warning C4244: 'argument' : conversion de 'time_t' en 'unsigned int', perte possible de données
+Graphics.cpp(81): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
+Graphics.cpp(83): warning C4018: '<' : incompatibilité signed/unsigned
+Graphics.cpp(85): warning C4244: 'initialisation' : conversion de 'double' en 'float', perte possible de données
+Graphics.cpp(86): warning C4244: 'initialisation' : conversion de 'double' en 'float', perte possible de données
+Graphics.cpp(93): warning C4244: 'initialisation' : conversion de 'double' en 'float', perte possible de données
+Graphics.cpp(98): warning C4305: '/=' : troncation de 'double' à 'float'
+Graphics.cpp(76): warning C4101: 'text_size' : variable locale non référencée
+Graphics.cpp(151): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
+Graphics.cpp(159): warning C4018: '<' : incompatibilité signed/unsigned
+Graphics.cpp(162): warning C4244: 'initialisation' : conversion de 'double' en 'float', perte possible de données
+Graphics.cpp(163): warning C4244: 'initialisation' : conversion de 'double' en 'float', perte possible de données
+Graphics.cpp(172): warning C4244: 'initialisation' : conversion de 'double' en 'float', perte possible de données
+Graphics.cpp(183): warning C4244: '+=' : conversion de 'float' en 'int', perte possible de données
+Graphics.cpp(146): warning C4101: 'text_size' : variable locale non référencée
   Génération de code en cours
-  1 of 325 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
+  1 of 332 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    20 functions had inline decision re-evaluated but remain unchanged
+    1 functions had inline decision re-evaluated but remain unchanged
   Fin de la génération du code
   Open Dreaming.vcxproj -> D:\Réalisation Informatique\openDreaming\Release\Open Dreaming.exe
   Open Dreaming.vcxproj -> D:\Réalisation Informatique\openDreaming\Release\Open Dreaming.pdb (Full PDB)

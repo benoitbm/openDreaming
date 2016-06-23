@@ -25,7 +25,6 @@ class Graphics
 	private :
 		char * wndname;
 		unsigned int width, height;
-		int width3, height3;
 
 		CvFont font;
 		CvRNG rng;
@@ -52,6 +51,8 @@ class Graphics
 
 		void color ();
 
-		void draw ();
 		void display ();
+
+		void drawRandomly();
+		void draw();
 };
