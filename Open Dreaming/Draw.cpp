@@ -9,36 +9,49 @@ void drawMaison(IplImage* img, CvPoint pos, int size_x, int size_y, CvScalar col
 	cvRectangle(img, cvPoint(pos.x - size_x / 4, pos.y + size_y / 3), cvPoint(pos.x + size_x / 4, pos.y + size_y), color, thickness, 8, 0);
 }
 
-void drawPolySphere(IplImage* img, CvPoint pos, int nbPts, int size, CvScalar color)
+void drawPolySphere(IplImage* img, CvPoint pos, int nbPts, int size, int attenuation, CvScalar color)
 {
 	int thickness = (rand() % 2);
 	
 	CvPoint * pts = new CvPoint[nbPts];
-	
+	size++;			//La solution du flemard pour eviter les divisions par zero.
+	attenuation++;	//pareil
+	if (attenuation <= 0)
+		attenuation = 1;
+	if (size == 0)
+		size = 1;
 	for (unsigned int i = 0; i < nbPts; ++i)
 	{
-		int random1 = (rand() % size) - size / 2;
-		int random2 = (rand() % size) - size / 2;
+		int random1 = ((rand() % size) - size/2) / attenuation;
+		int random2 = ((rand() % size) - size/2) / attenuation;
 		pts[i] = (cvPoint(cos((2*i*3.14159)/nbPts)*size+pos.x+random1, sin((2*i*3.14159)/nbPts)*size+pos.y+random2));
 	}
 	//int npts = Mat(contour).rows;
 
 	std::cout << "Number of polygon vertices: " << nbPts << std::endl;
 
+	IplImage* tmp = cvCloneImage(img);
 	// draw the polygon 
-	int mode = rand() % 2 + 1;
-	if(mode == 1)
-		cvFillPoly(img, &pts, &nbPts, 1,
+	//int mode = rand() % 2 + 1
+	int mode = 1;
+	double opacity = 0.2;
+	if (mode == 1)
+	{
+		cvFillPoly(tmp, &pts, &nbPts, 1,
 			// draw closed contour (i.e. joint end to start) 
-		color,// colour RGB ordering (here = green) 
- 		        // line thickness
-		8, 0);
+			color,// colour RGB ordering (here = green) 
+					// line thickness
+			8, 0);
+	}
 	else
-		cvPolyLine(img, &pts, &nbPts, 1,
+	{
+		cvPolyLine(tmp, &pts, &nbPts, 1,
 			true, 			// draw closed contour (i.e. joint end to start) 
 			color,// colour RGB ordering (here = green) 
 			thickness, 		        // line thickness
 			8, 0);
+	}
+	cvAddWeighted(tmp, opacity, img, 1 - opacity, 0, img);
 	delete [] pts;
 }
 
