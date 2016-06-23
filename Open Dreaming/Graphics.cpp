@@ -19,17 +19,6 @@ string motsClesMusique[] = {
 	"reine", "reines"
 };
 
-//Tableau contenant les mots clés pour les fonctions spéciales
-string motsCles[] = {
-	"maison",
-	"ocean","oceans", //Fonction bulles
-	"mer", "mers",
-	"lac", "lacs"
-	"bulle", "bulles",
-	"roi", "rois", //Fonction roi pour la musique
-	"reine", "reines"
-};
-
 Graphics::Graphics()
 	: wndname("Open Dreaming"), image(NULL), image2(NULL), key(' '), leave(true), word(NULL)
 {}
@@ -74,23 +63,28 @@ void Graphics::display()
 	cvNamedWindow(wndname, CV_WINDOW_NORMAL);
 	cvSetWindowProperty(wndname, CV_WND_PROP_FULLSCREEN, CV_WINDOW_FULLSCREEN);
 
+
 	while (leave)
 	{		
 		text = recevoirPhrase();
 
+		/*
+		if (!music.openFromFile("w1.flac"))
+		{	}
+		else
+		{
+			music.play();
+		}
+		*/
+
 		if (text.empty())
 			break;
 
-<<<<<<< HEAD
 		if (determinerChoix() == 0)
 			draw();
 		else
 			drawRandomly();
 
-=======
-		//drawRandomly();	
-		draw();
->>>>>>> 68acc9ad13865a8c35ceeebdf3bb23cd23da3e87
 	}
 
 	Sleep(350 + generateNumber(0, 250));
@@ -280,11 +274,7 @@ void Graphics::draw()
 
 	for (int i = 0; i < text.size(); i += 0)
 	{
-<<<<<<< HEAD
 
-=======
-		
->>>>>>> 68acc9ad13865a8c35ceeebdf3bb23cd23da3e87
 		float hauteur_lettre = (rand() % 10)*0.01 + 0.95;
 		float largeur_lettre = (rand() % 10)*0.01 + 0.95;
 
@@ -310,7 +300,6 @@ void Graphics::draw()
 			line_type);
 
 		//pt1.x += (previousSize[max - text.size() - 1] * previousWord[max - text.size() - 1] + 150);
-<<<<<<< HEAD
 		pt1.x = pos * 20;
 
 		// Positionne les mots
@@ -319,16 +308,6 @@ void Graphics::draw()
 			pt1.x = 5;
 			pos = 0;
 			pt1.y = countLine++ * 40 + 30;
-=======
-		pt1.x = pos*20;
-
-		// Positionne les mots
-		if ((pos+1)*20> (0.9 * width))
-		{
-			pt1.x = 5;
-			pos = 0;
-			pt1.y = countLine++  * 40 + 30;
->>>>>>> 68acc9ad13865a8c35ceeebdf3bb23cd23da3e87
 		}
 		else if (beginLine == true)
 		{
@@ -347,16 +326,8 @@ void Graphics::draw()
 		}
 
 		// Tentative de dessin d'un coeur
-<<<<<<< HEAD
 		cv::Mat imgM;
 		//drawHeart(imgM);
-=======
-		cv::Mat imgM = cv::Mat::zeros(480, 240, CV_8UC3);
-		
-		drawHeart(imgM);
-
-		cv::imshow(wndname, imgM);
->>>>>>> 68acc9ad13865a8c35ceeebdf3bb23cd23da3e87
 
 		// Affiche le mot
 		cvPutText(image, word, pt1, &font, random_color(&rng));

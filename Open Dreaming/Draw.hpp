@@ -15,4 +15,3 @@ void drawPolySphere(IplImage* img, CvPoint pos, int nbPts, int size, int attenua
 void drawRectangle(IplImage* img, CvPoint pt1, CvPoint pt2, CvScalar color);
 void drawCercle(IplImage* img, CvPoint center, int radius, CvScalar color);
 void drawLine(IplImage* img, CvPoint pt1, CvPoint pt2, CvScalar color);
-void drawHeart(cv::Mat & img, int lineType = 8);

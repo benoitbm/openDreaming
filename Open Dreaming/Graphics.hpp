@@ -10,16 +10,12 @@
 #include <queue>
 #include <algorithm> //Pour avoir les chaînes de caractères en minuscule
 
+// #include <SFML/Audio.hpp>
+
 #define CV_NO_BACKWARD_COMPATIBILITY
+
 #define DELAY 5
 
-<<<<<<< HEAD
-=======
-using namespace std;
-
-
-
->>>>>>> 68acc9ad13865a8c35ceeebdf3bb23cd23da3e87
 struct Color
 {
 	unsigned char red, green, blue;
@@ -47,6 +43,8 @@ class Graphics
 		bool leave;
 
 		const char * word;
+
+		// sf::Music music;
 
 	public : 
 		Graphics ();
