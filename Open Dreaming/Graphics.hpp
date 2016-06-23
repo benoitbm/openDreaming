@@ -15,18 +15,6 @@
 
 #define DELAY 5
 
-//Tableau contenant les mots clés pour les fonctions spéciales
-string motsCles[] = {
-	"maison",
-	"ocean","oceans", //Fonction bulles
-	"mer", "mers",
-	"lac", "lacs"
-	"bulle", "bulles",
-	"roi", "rois", //Fonction roi pour la musique
-	"reine"
-
-};
-
 struct Color
 {
 	unsigned char red, green, blue;
