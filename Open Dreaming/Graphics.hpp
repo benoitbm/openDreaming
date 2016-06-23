@@ -9,23 +9,12 @@
 #include <iostream>
 #include <queue>
 
-// #include <SFML/Audio.hpp>
-
 #define CV_NO_BACKWARD_COMPATIBILITY
-
 #define DELAY 5
 
-//Tableau contenant les mots clés pour les fonctions spéciales
-string motsCles[] = {
-	"maison",
-	"ocean","oceans", //Fonction bulles
-	"mer", "mers",
-	"lac", "lacs"
-	"bulle", "bulles",
-	"roi", "rois", //Fonction roi pour la musique
-	"reine"
+using namespace std;
 
-};
+
 
 struct Color
 {
@@ -54,8 +43,6 @@ class Graphics
 		bool leave;
 
 		const char * word;
-
-		// sf::Music music;
 
 	public : 
 		Graphics ();

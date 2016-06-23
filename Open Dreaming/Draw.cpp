@@ -26,9 +26,9 @@ void drawPolySphere(IplImage* img, CvPoint pos, int nbPts, int size, int attenua
 		int random2 = ((rand() % size) - size/2) / attenuation;
 		pts[i] = (cvPoint(cos((2*i*3.14159)/nbPts)*size+pos.x+random1, sin((2*i*3.14159)/nbPts)*size+pos.y+random2));
 	}
-	//int npts = Mat(contour).rows;
 
-	std::cout << "Number of polygon vertices: " << nbPts << std::endl;
+	//int npts = Mat(contour).rows;
+	//std::cout << "Number of polygon vertices: " << nbPts << std::endl;
 
 	IplImage* tmp = cvCloneImage(img);
 	// draw the polygon 
@@ -91,3 +91,28 @@ void drawLine(IplImage * img, CvPoint pt1, CvPoint pt2, CvScalar color)
 	cvLine(img, pt1, pt2, color);
 }
 
+void drawHeart(cv::Mat& img, int lineType )
+{
+	int w = 480;
+	int h = 240;
+	
+	cv::Point rook_points[1][8];
+	rook_points[0][0] = cv::Point(w * (1 / 4), h * (2 / 5));
+	rook_points[0][1] = cv::Point(w * (1.5 / 4), h * (1 / 5));
+	rook_points[0][2] = cv::Point(w * (2 / 4), h * (2 / 5));
+	rook_points[0][3] = cv::Point(w * (2.5 / 4), h * (1 / 5));
+	rook_points[0][4] = cv::Point(w * (3 / 4), h * (2 / 5));
+	rook_points[0][5] = cv::Point(w * (3 / 4), h * (3 / 5));
+	rook_points[0][6] = cv::Point(w * (2 / 4), h * (4 / 5));
+	rook_points[0][7] = cv::Point(w * (1 / 4), h * (3 / 5));
+
+	const cv::Point* ppt[1] = { rook_points[0] };
+	int npt[] = { 20 };
+
+	fillPoly(img,
+		ppt,
+		npt,
+		1,
+		cv::Scalar(255, 255, 255),
+		lineType);
+}

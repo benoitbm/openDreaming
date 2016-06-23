@@ -2,6 +2,17 @@
 #include "Parser.hpp"
 #include "Draw.hpp"
 
+//Tableau contenant les mots clés pour les fonctions spéciales
+string motsCles[] = {
+	"maison",
+	"ocean","oceans", //Fonction bulles
+	"mer", "mers",
+	"lac", "lacs"
+	"bulle", "bulles",
+	"roi", "rois", //Fonction roi pour la musique
+	"reine", "reines"
+};
+
 Graphics::Graphics()
 	: wndname("Open Dreaming"), image(NULL), image2(NULL), key(' '), leave(true), word(NULL)
 {}
@@ -46,24 +57,15 @@ void Graphics::display()
 	cvNamedWindow(wndname, CV_WINDOW_NORMAL);
 	cvSetWindowProperty(wndname, CV_WND_PROP_FULLSCREEN, CV_WINDOW_FULLSCREEN);
 
-
 	while (leave)
 	{		
 		text = recevoirPhrase();
 
-		/*
-		if (!music.openFromFile("w1.flac"))
-		{	}
-		else
-		{
-			music.play();
-		}
-		*/
-
 		if (text.empty())
 			break;
 
-		drawRandomly();	
+		//drawRandomly();	
+		draw();
 	}
 
 	Sleep(500);
@@ -187,18 +189,20 @@ void Graphics::draw()
 
 	unsigned char countLine = 0;
 
-	pt1.y = 20;
+	pt1.y = 30;
 
 	const char max = text.size();
 
 	char * previousWord = new char [max];
 	float * previousSize = new float[max];
 
+	int pos = 0;
+
 	for (int i = 0; i < text.size(); i += 0)
 	{
 		
-		float hauteur_lettre = (cvRandInt(&rng) % 80)*0.02 + .2;
-		float largeur_lettre = (cvRandInt(&rng) % 80)*0.02 + .2;
+		float hauteur_lettre = (rand() % 10)*0.01 + 0.95;
+		float largeur_lettre = (rand() % 10)*0.01 + 0.95;
 
 		previousSize[max - text.size()] = largeur_lettre;
 
@@ -221,25 +225,41 @@ void Graphics::draw()
 			cvRound(cvRandInt(&rng) % 2),
 			line_type);
 
-		pt1.x += (previousSize[max - text.size() - 1] * previousWord[max - text.size() - 1] * 30);
+		//pt1.x += (previousSize[max - text.size() - 1] * previousWord[max - text.size() - 1] + 150);
+		pt1.x = pos*20;
 
 		// Positionne les mots
-		if ((pt1.x + (taille_l * 100) > (0.9 * width)))
+		if ((pos+1)*20> (0.9 * width))
 		{
 			pt1.x = 5;
-			countLine++;
-			pt1.y += countLine * 20;
+			pos = 0;
+			pt1.y = countLine++  * 40 + 30;
 		}
 		else if (beginLine == true)
 		{
 			pt1.x = 5;
+			pos = 0;
 			countLine++;
 			beginLine = false;
 		}
 
+		if (countLine > 4)
+		{
+			countLine = 0;
+			pt1.y = countLine++ * 40 + 30;
+			Sleep(150);
+			cvZero(image);
+		}
+
+		// Tentative de dessin d'un coeur
+		cv::Mat imgM;
+		drawHeart(imgM);
+
 		// Affiche le mot
 		cvPutText(image, word, pt1, &font, random_color(&rng));
 		cvShowImage(wndname, image);
+
+		pos += (mot.length() + 1);
 
 		// Permet de quitter la fonction
 		if (cvWaitKey(DELAY) >= 0)
@@ -258,7 +278,7 @@ void Graphics::draw()
 		{
 			beginLine = true;
 			countLine = 0;
-			pt1.y = 20;
+			pt1.y = 30;
 		}
 
 		Sleep (150);
