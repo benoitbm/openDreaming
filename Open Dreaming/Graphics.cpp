@@ -2,6 +2,7 @@
 #include "Parser.hpp"
 #include "Draw.hpp"
 #include "Random.hpp"
+#include "Musique.hpp"
 
 using namespace std;
 
@@ -49,6 +50,8 @@ CvScalar random_color(CvRNG* rng)
 
 void Graphics::display()
 {
+	changerMusique("queen");
+
 	// Lit le fichier que l'utilisateur souhaite
 	readFile();
 	

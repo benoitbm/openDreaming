@@ -2,7 +2,7 @@
 queue<string> histoire; //Variable globale contenant les mots
 
 ///<summary>
-///Fonction pour ouvrir la fenêtre de dialogue pour choisir un fichier.
+///Fonction pour ouvrir la fenêtre de dialogue pour choisir un fichier. (Initialisation de classe)
 ///</summary>
 OpenFileDialog::OpenFileDialog(void)
 {
