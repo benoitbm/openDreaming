@@ -252,8 +252,11 @@ void Graphics::draw()
 		}
 
 		// Tentative de dessin d'un coeur
-		cv::Mat imgM;
+		cv::Mat imgM = cv::Mat::zeros(480, 240, CV_8UC3);
+		
 		drawHeart(imgM);
+
+		cv::imshow(wndname, imgM);
 
 		// Affiche le mot
 		cvPutText(image, word, pt1, &font, random_color(&rng));

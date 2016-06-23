@@ -91,7 +91,7 @@ void drawLine(IplImage * img, CvPoint pt1, CvPoint pt2, CvScalar color)
 	cvLine(img, pt1, pt2, color);
 }
 
-void drawHeart(cv::Mat& img, int lineType )
+void drawHeart(cv::Mat& img,  int lineType )
 {
 	int w = 480;
 	int h = 240;
@@ -115,4 +115,5 @@ void drawHeart(cv::Mat& img, int lineType )
 		1,
 		cv::Scalar(255, 255, 255),
 		lineType);
+
 }
