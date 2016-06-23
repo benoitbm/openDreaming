@@ -1,11 +1,14 @@
-﻿  Main.cpp
-Main.cpp(53): warning C4101: 'pt2' : variable locale non référencée
-Main.cpp(55): warning C4101: 'sz' : variable locale non référencée
-Main.cpp(54): warning C4101: 'angle' : variable locale non référencée
-Main.cpp(62): warning C4101: 'text_size' : variable locale non référencée
-Main.cpp(101): warning C4244: 'argument' : conversion de 'time_t' en 'unsigned int', perte possible de données
+﻿  Graphics.cpp
+Graphics.cpp(36): warning C4244: 'argument' : conversion de 'time_t' en 'unsigned int', perte possible de données
+Graphics.cpp(70): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
+Graphics.cpp(74): warning C4018: '<' : incompatibilité signed/unsigned
+Graphics.cpp(76): warning C4244: 'initialisation' : conversion de 'double' en 'float', perte possible de données
+Graphics.cpp(77): warning C4244: 'initialisation' : conversion de 'double' en 'float', perte possible de données
+Graphics.cpp(84): warning C4244: 'initialisation' : conversion de 'double' en 'float', perte possible de données
+Graphics.cpp(91): warning C4305: '/=' : troncation de 'double' à 'float'
+Graphics.cpp(65): warning C4101: 'text_size' : variable locale non référencée
   Génération de code en cours
-  1 of 9 functions (11.1%) were compiled, the rest were copied from previous compilation.
+  1 of 327 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
     1 functions had inline decision re-evaluated but remain unchanged
   Fin de la génération du code
