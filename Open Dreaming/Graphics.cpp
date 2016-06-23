@@ -177,10 +177,6 @@ void Graphics::drawRandomly()
 				cvRound(cvRandInt(&rng) % 2),
 				line_type);
 
-			// Affiche le mot
-			cvPutText(image, word, pt1, &font, random_color(&rng));
-			cvShowImage(wndname, image);
-
 			//Affiche les tâches
 
 			image2 = cvQueryFrame(capture);
@@ -188,6 +184,12 @@ void Graphics::drawRandomly()
 
 			pt2.x = cvRandInt(&rng) % width;
 			pt2.y = cvRandInt(&rng) % height;
+
+			//drawCercle(image, cvPoint(width / 2, height / 2), 100, cvScalar(moy, moy, moy));
+
+			// Affiche le mot
+			cvPutText(image, word, pt1, &font, random_color(&rng));
+			cvShowImage(wndname, image);
 
 			//Dessine des spheres à piques variables
 			drawPolySphere(image, pt2, rand() % 42 + 21, 64 - moy / 2, -2 + moy / 18, random_color(&rng));

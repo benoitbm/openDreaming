@@ -62,7 +62,10 @@ void drawPolySphere(IplImage* img, CvPoint pos, int nbPts, int size, int attenua
 ///<param name ="color">Couleur du rectangle.</param>
 void drawRectangle(IplImage * img, CvPoint pt1, CvPoint pt2, CvScalar color)
 {
-	cvRectangle(img, pt1, pt2, color);
+	IplImage* tmp = cvCloneImage(img);
+	double opacity = 0.2;
+	cvRectangle(tmp, pt1, pt2, color);
+	cvAddWeighted(tmp, opacity, img, 1 - opacity, 0, img);
 }
 
 ///<summary>
@@ -74,7 +77,10 @@ void drawRectangle(IplImage * img, CvPoint pt1, CvPoint pt2, CvScalar color)
 ///<param name ="color">Couleur du cercle.</param>
 void drawCercle(IplImage * img, CvPoint center, int radius, CvScalar color)
 {
-	cvCircle(img, center, radius, color);
+	IplImage* tmp = cvCloneImage(img);
+	double opacity = 0.2;
+	cvCircle(tmp, center, radius, color);
+	cvAddWeighted(tmp, opacity, img, 1 - opacity, 0, img);
 }
 
 ///<summary>
@@ -86,6 +92,9 @@ void drawCercle(IplImage * img, CvPoint center, int radius, CvScalar color)
 ///<param name ="color">Couleur de la ligne.</param>
 void drawLine(IplImage * img, CvPoint pt1, CvPoint pt2, CvScalar color)
 {
-	cvLine(img, pt1, pt2, color);
+	IplImage* tmp = cvCloneImage(img);
+	double opacity = 0.2;
+	cvLine(tmp, pt1, pt2, color);
+	cvAddWeighted(tmp, opacity, img, 1 - opacity, 0, img);
 }
 
