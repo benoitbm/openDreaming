@@ -1,5 +1,6 @@
 #include "Graphics.hpp"
 #include "Parser.hpp"
+#include "Draw.hpp"
 
 Graphics::Graphics()
 	: wndname("Open Dreaming"), image(NULL), image2(NULL), key(' '), leave(true), word(NULL)
@@ -40,7 +41,7 @@ void Graphics::display()
 	width = 480;
 	height = 240;
 
-	image = cvCreateImage(cvSize(width, height), 8, 3);
+	image = cvCreateImage(cvSize(width, height), 8, 4);
 	
 	cvNamedWindow(wndname, CV_WINDOW_NORMAL);
 	cvSetWindowProperty(wndname, CV_WND_PROP_FULLSCREEN, CV_WINDOW_FULLSCREEN);
@@ -62,16 +63,36 @@ void Graphics::display()
 		if (text.empty())
 			break;
 
-		draw();	
+		drawRandomly();	
 	}
 
 	Sleep(500);
 }
 
+int getAverageLum(IplImage * img)
+{
+	int moy = 0;
+	int j = 0;
+	char * data = img->imageData;
+
+	for (int i = 0; i < img->imageSize/3; i++)
+	{
+		unsigned char r = data[j++];
+		unsigned char g = data[j++];
+		unsigned char b = data[j++];
+
+		moy += (unsigned int(r) + unsigned int(g) + unsigned int(b)) / 3;
+	}
+
+	moy /= (img->imageSize / 3);
+	return moy;
+}
+
 void Graphics::drawRandomly()
 {
-
+	int moy = 0;
 	int line_type = CV_AA;
+	CvCapture * capture = cvCaptureFromCAM(0);
 
 	CvSize text_size;
 
@@ -122,6 +143,18 @@ void Graphics::drawRandomly()
 		cvPutText(image, word, pt1, &font, random_color(&rng));
 		cvShowImage(wndname, image);
 
+		//Affiche les tâches
+
+		image2 = cvQueryFrame(capture);
+		moy = getAverageLum(image2);
+
+		pt2.x = cvRandInt(&rng) % width;
+		pt2.y = cvRandInt(&rng) % height;
+
+		drawPolySphere(image, pt2, rand() % 42 + 21, 64-moy/2, -2+moy/18, random_color(&rng));
+
+		//------------------
+
 		// Permet de quitter la fonction
 		if (cvWaitKey(DELAY) >= 0)
 		{
@@ -133,10 +166,10 @@ void Graphics::drawRandomly()
 				break;
 			}
 		}
-		Sleep(500);
+		Sleep(moy*1.8+rand()%120);
 	}
 
-	Sleep(500);
+	Sleep(moy*1.8);
 }
 
 void Graphics::draw()
