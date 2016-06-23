@@ -47,6 +47,15 @@ void Graphics::display()
 	{		
 		text = recevoirPhrase();
 
+		/*
+		if (!music.openFromFile("w1.flac"))
+		{	}
+		else
+		{
+			music.play();
+		}
+		*/
+
 		if (text.empty())
 			break;
 
@@ -56,7 +65,7 @@ void Graphics::display()
 
 void Graphics::draw()
 {
-	
+
 	int line_type = CV_AA;
 
 	width3 = width * 3;
@@ -69,8 +78,6 @@ void Graphics::draw()
 
 	rng = aleatoire(width*1.5, 0);
 
-	cvCircle(image, cvPoint(480,240),2,random_color(&rng),-1);
-
 	for (int i = 0; i < text.size(); i += 0)
 	{
 		float hauteur_lettre = (cvRandInt(&rng) % 80)*0.02 + .2;
@@ -82,8 +89,6 @@ void Graphics::draw()
 		word = mot.c_str();
 
 		float taille_l = largeur_lettre * mot.length() * 0.02;
-		
-		cout << taille_l << endl;
 
 		pt1.x = cvRandInt(&rng) % width;
 

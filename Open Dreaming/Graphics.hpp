@@ -1,13 +1,15 @@
 #pragma once
 
-#include "Dependencies/cv.h"
-#include "Dependencies/highgui.h"
+#include "Dependencies/OpenCV/cv.h"
+#include "Dependencies/OpenCV/highgui.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
 #include <string>
 #include <iostream>
 #include <queue>
+
+// #include <SFML/Audio.hpp>
 
 #define CV_NO_BACKWARD_COMPATIBILITY
 
@@ -41,6 +43,8 @@ class Graphics
 		bool leave;
 
 		const char * word;
+
+		// sf::Music music;
 
 	public : 
 		Graphics ();

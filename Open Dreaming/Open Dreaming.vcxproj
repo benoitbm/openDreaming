@@ -96,13 +96,13 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\Réalisation Informatique\openDreaming\Open Dreaming\Dependencies\SFML\include;D:\Réalisation Informatique\openDreaming\Open Dreaming\Dependencies;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Réalisation Informatique\openDreaming\Open Dreaming\Dependencies\OpenCV;C:\SFML-2.3.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>D:\Réalisation Informatique\openDreaming\Open Dreaming\Dependencies;D:\Réalisation Informatique\openDreaming\Open Dreaming\Dependencies\SFML\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>cv210.lib;cvaux210.lib;cxcore210.lib;cxts210.lib;highgui210.lib;ml210.lib;opencv_ffmpeg210.lib;sfml-window.lib;sfml-audio.lib;sfml-system.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\SFML-2.3.2\lib;D:\Réalisation Informatique\openDreaming\Open Dreaming\Dependencies\OpenCV;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>cv210.lib;cvaux210.lib;cxcore210.lib;cxts210.lib;highgui210.lib;ml210.lib;opencv_ffmpeg210.lib;sfml-audio.lib;sfml-audio-s.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
