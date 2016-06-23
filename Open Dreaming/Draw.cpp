@@ -28,8 +28,6 @@ void drawPolySphere(IplImage* img, CvPoint pos, int nbPts, int size, int attenua
 	}
 	//int npts = Mat(contour).rows;
 
-	std::cout << "Number of polygon vertices: " << nbPts << std::endl;
-
 	IplImage* tmp = cvCloneImage(img);
 	// draw the polygon 
 	//int mode = rand() % 2 + 1
@@ -37,18 +35,18 @@ void drawPolySphere(IplImage* img, CvPoint pos, int nbPts, int size, int attenua
 	double opacity = 0.2;
 	if (mode == 1)
 	{
-		cvFillPoly(tmp, &pts, &nbPts, 1,
-			// draw closed contour (i.e. joint end to start) 
-			color,// colour RGB ordering (here = green) 
-					// line thickness
-			8, 0);
+		cvFillPoly(tmp, &pts, &nbPts, 
+			1,		// draw closed contour (i.e. joint end to start) 
+			color,	// colour RGB ordering (here = green) 
+			8,		// line thickness
+			0);
 	}
 	else
 	{
 		cvPolyLine(tmp, &pts, &nbPts, 1,
-			true, 			// draw closed contour (i.e. joint end to start) 
-			color,// colour RGB ordering (here = green) 
-			thickness, 		        // line thickness
+			true, 	// draw closed contour (i.e. joint end to start) 
+			color,	// colour RGB ordering (here = green) 
+			thickness, 		        
 			8, 0);
 	}
 	cvAddWeighted(tmp, opacity, img, 1 - opacity, 0, img);

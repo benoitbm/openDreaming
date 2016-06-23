@@ -12,6 +12,7 @@ float generateNumber(float min, float max);
 int determinerChoix();
 int typePhrase();
 int typeMot();
+int typeForme();
 int typePhrase();
 
 #endif
