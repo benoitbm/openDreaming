@@ -16,9 +16,72 @@ string motsClesDessin[] = {
 };
 
 string motsClesMusique[] = {
+	//Birth/Naissance
+	"naitre",
+	"naissance", "naissances",
+	"bebe", "bebes",
+
+	//Mort / Death
+	"deceder",
+	"deces",
+	"mort", "morte", "morts", "mortes",
+	"mourir",
+
+	//Rêve / dream
+	"reve", "reves",
+	"rever",
+	"songe", "songes",
+
+	//Famille / familly
+	"famille", "familles",
+
+	//Paix / Imagine
+	"paix",
+	"imaginer",
+	"imagination",
+
+	//Joie
+	"bonheur",
+	"joie", "joyeux",
+	"heureux", "heureuse", "heureuses",
+
+	//Amour
+	"aimer",
+	"aime",
+	"amour",
+	"amant", "amants",
+
+	//Argent
+	"argent",
+
+	//Queen
 	"roi", "rois",
-	"reine", "reines"
+	"reine", "reines",
+	"royal", "royale", "royaux",
+
+	//revolution
+	"revolte",
+	"revolution",
+
+	//meteo
+	"meteo",
+	"soleil",
+	"nuage", "nuages",
+	"lune",
+	"astre",
+	"pluie", "pleuvoir",
+	"orage",
+	"neige", "neiger",
+
+	//who
+	"qui",
+
+	//will
+	"volonte", "continuer"
 };
+
+bool sombre = false;
+bool clair = false;
 
 Graphics::Graphics()
 	: wndname("Open Dreaming"), image(NULL), image2(NULL), key(' '), leave(true), word(NULL)
@@ -50,11 +113,11 @@ CvScalar random_color(CvRNG* rng)
 
 void Graphics::display()
 {
-	changerMusique("queen");
-
 	// Lit le fichier que l'utilisateur souhaite
 	readFile();
 	
+	creerListe();
+
 	srand(time(NULL));
 	
 	// Taille en pixel de l'image (même si l'affichage peut être plus grand)
@@ -70,15 +133,6 @@ void Graphics::display()
 	while (leave)
 	{		
 		text = recevoirPhrase();
-
-		/*
-		if (!music.openFromFile("w1.flac"))
-		{	}
-		else
-		{
-			music.play();
-		}
-		*/
 
 		if (text.empty())
 			break;
@@ -109,6 +163,24 @@ int getAverageLum(IplImage * img)
 	}
 
 	moy /= (img->imageSize / 3);
+	if (moy <= 75 && !sombre)
+	{
+		sombre = true;
+		clair = false;
+		musiqueMot("sombre");
+	}
+	else if (moy >= 200 && !clair)
+	{
+		sombre = false;
+		clair = true;
+		musiqueMot("lumiere");
+	}
+	else
+	{
+		sombre = false;
+		clair = false;
+	}
+
 	return moy;
 }
 
@@ -130,19 +202,34 @@ void Graphics::drawRandomly()
 		string mot = text.front();
 		text.pop();
 
-		string motlow;
-		transform(mot.begin(), mot.end(), motlow.begin(), ::tolower);
+		string motlow = mot;
+		
+		for (int l = 0; l < mot.length(); ++l)
+			motlow.at(l) = tolower(mot.at(l));
 
+		bool motMusical = false;
+		for (int m = 0; m < sizeof(motsClesMusique) / sizeof(motsClesMusique[0]); ++m)
+			motMusical = motMusical || (motlow.compare(motsClesMusique[m]) == 0);
+
+		if (motMusical)
+			musiqueMot(motlow);
+		
 		bool motCle = false;
 
 		for (int i = 0; i < sizeof(motsClesDessin)/sizeof(motsClesDessin[0]); ++i)
 			motCle = motCle || (motlow.compare(motsClesDessin[i]) == 0);
 
-		if (motCle)
+		if (motCle && moy > 75 && moy < 200)
 		{
-
+			//Rajoutez les fonctions de dessin de mot clé ici
+			if (motlow.compare("maison") == 0 || motlow.compare("maisons") == 0)
+			{
+				pt1.x = width / 2;
+				pt1.y = height / 2;
+				drawMaison(image, pt1, width/4, width/4, random_color(&rng));
+			}
 		}
-		else if (typeMot() <= 2)
+		else if (typeMot() <= 2) //Cas où écriture du mot
 		{
 			float hauteur_lettre = (cvRandInt(&rng) % 80)*0.02 + .2;
 			float largeur_lettre = (cvRandInt(&rng) % 80)*0.02 + .2;
@@ -287,6 +374,17 @@ void Graphics::draw()
 
 		string mot = text.front();
 
+		string motlow = mot; //Pour la musique
+		for (int l = 0; l < mot.length(); l++)
+			motlow.at(l) = tolower(mot.at(l));
+
+		bool motMusical = false;
+		for (int m = 0; m < sizeof(motsClesMusique) / sizeof(motsClesMusique[0]); ++m)
+			motMusical = motMusical || (motlow.compare(motsClesMusique[m]) == 0);
+
+		if (motMusical)
+			musiqueMot(motlow);
+
 		word = mot.c_str();
 
 		previousWord[max - text.size()] = mot.length();
@@ -341,12 +439,14 @@ void Graphics::draw()
 		pos += (mot.length() + 1);
 
 		// Permet de quitter la fonction
+		
 		if (cvWaitKey(DELAY) >= 0)
 		{
 			key = cvWaitKey(80);
 
 			if (int(key) == 27)
 			{
+				arretMusique();
 				leave = false;
 				break;
 			}

@@ -4,6 +4,7 @@
 
 #include <SFML\Audio.hpp>
 #include <string>
+#include <map>
 
 #include "Random.hpp"
 
@@ -16,6 +17,8 @@ void changerMusique(string nomMusique);
 void jouerMusique();
 void pauseMusique();
 void arretMusique();
+void musiqueMot(string mot);
+void creerListe();
 
 
 #endif // !MUSIQUE_HPP
