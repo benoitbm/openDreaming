@@ -65,7 +65,7 @@ void Graphics::display()
 		draw();	
 	}
 
-	Sleep (500);
+	Sleep(500);
 }
 
 void Graphics::drawRandomly()
@@ -133,7 +133,7 @@ void Graphics::drawRandomly()
 				break;
 			}
 		}
-
+		Sleep(500);
 	}
 
 	Sleep(500);
@@ -154,7 +154,12 @@ void Graphics::draw()
 
 	unsigned char countLine = 0;
 
-	pt1.y = 10;
+	pt1.y = 20;
+
+	const char max = text.size();
+
+	char * previousWord = new char [max];
+	float * previousSize = new float[max];
 
 	for (int i = 0; i < text.size(); i += 0)
 	{
@@ -162,14 +167,17 @@ void Graphics::draw()
 		float hauteur_lettre = (cvRandInt(&rng) % 80)*0.02 + .2;
 		float largeur_lettre = (cvRandInt(&rng) % 80)*0.02 + .2;
 
-		cout << "H : " << hauteur_lettre << " L : " << largeur_lettre << endl;
+		previousSize[max - text.size()] = largeur_lettre;
 
 		string mot = text.front();
-		text.pop();
-
+		
 		word = mot.c_str();
 
-		float taille_l = largeur_lettre * mot.length() * 0.02;	
+		previousWord[max - text.size()] = mot.length();
+
+		text.pop();
+
+		float taille_l = previousWord[max - text.size() - 1] * 0.02 * previousSize[max - text.size() - 1];
 
 		// Taille des lettres, nombre de traits pour l'épaisseur
 		cvInitFont(&font,
@@ -180,7 +188,7 @@ void Graphics::draw()
 			cvRound(cvRandInt(&rng) % 2),
 			line_type);
 
-		pt1.x += hauteur_lettre * mot.length()*30;
+		pt1.x += (previousSize[max - text.size() - 1] * previousWord[max - text.size() - 1] * 30);
 
 		// Positionne les mots
 		if ((pt1.x + (taille_l * 100) > (0.9 * width)))
@@ -212,12 +220,12 @@ void Graphics::draw()
 			}
 		}
 
-
+		
 		if (text.size() == 0)
 		{
 			beginLine = true;
 			countLine = 0;
-			pt1.y = 10;
+			pt1.y = 20;
 		}
 
 		Sleep (150);
