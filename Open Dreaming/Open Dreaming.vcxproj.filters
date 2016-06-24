@@ -27,12 +27,30 @@
     <ClCompile Include="Parser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Draw.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Musique.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Random.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Parser.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Draw.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Musique.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Random.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

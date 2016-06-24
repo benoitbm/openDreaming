@@ -75,10 +75,10 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\Réalisation Informatique\openDreaming\Open Dreaming\Dependencies;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\benoi\Desktop\openDreaming\Open Dreaming\Dependencies;C:\Users\benoi\Desktop\openDreaming\Open Dreaming\Dependencies\OpenCV;D:\Réalisation Informatique\openDreaming\Open Dreaming\Dependencies;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>D:\Réalisation Informatique\openDreaming\Open Dreaming\Dependencies;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\benoi\Desktop\openDreaming\Open Dreaming\Dependencies\SFML\lib;C:\Users\benoi\Desktop\openDreaming\Open Dreaming\Dependencies\OpenCV;D:\Réalisation Informatique\openDreaming\Open Dreaming\Dependencies;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>cv210d.lib;cvaux210d.lib;cxcore210d.lib;cxts210.lib;highgui210d.lib;ml210d.lib;opencv_ffmpeg210d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -96,12 +96,12 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\Réalisation Informatique\openDreaming\Open Dreaming\Dependencies\OpenCV;C:\SFML-2.3.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\benoi\Desktop\openDreaming\Open Dreaming\Dependencies;C:\Users\benoi\Desktop\openDreaming\Open Dreaming\Dependencies\OpenCV;D:\Réalisation Informatique\openDreaming\Open Dreaming\Dependencies\OpenCV;C:\SFML-2.3.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>C:\SFML-2.3.2\lib;D:\Réalisation Informatique\openDreaming\Open Dreaming\Dependencies\OpenCV;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\benoi\Desktop\openDreaming\Open Dreaming\Dependencies\SFML\lib;C:\Users\benoi\Desktop\openDreaming\Open Dreaming\Dependencies\OpenCV;C:\SFML-2.3.2\lib;D:\Réalisation Informatique\openDreaming\Open Dreaming\Dependencies\OpenCV;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>cv210.lib;cvaux210.lib;cxcore210.lib;cxts210.lib;highgui210.lib;ml210.lib;opencv_ffmpeg210.lib;sfml-audio.lib;sfml-audio-s.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -122,13 +122,19 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Draw.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Musique.cpp" />
     <ClCompile Include="Parser.cpp" />
+    <ClCompile Include="Random.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Draw.hpp" />
     <ClInclude Include="Graphics.hpp" />
+    <ClInclude Include="Musique.hpp" />
     <ClInclude Include="Parser.hpp" />
+    <ClInclude Include="Random.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
