@@ -12,9 +12,15 @@ void creerListe()
 	listeMusique["naissances"] = 1;
 	listeMusique["bebe"] = 1;
 	listeMusique["bebes"] = 1;
+	listeMusique["bébé"] = 1;
+	listeMusique["bébés"] = 1;
 
 	//Dark
 	listeMusique["sombre"] = 2;
+	listeMusique["pleurs"] = 2;
+	listeMusique["pleurer"] = 2;
+	listeMusique["desespoir"] = 2;
+	listeMusique["désespoir"] = 2;
 	
 	//Mort / Death
 	listeMusique["deceder"] = 3;
@@ -24,17 +30,35 @@ void creerListe()
 	listeMusique["morts"] = 3;
 	listeMusique["mortes"] = 3;
 	listeMusique["mourir"] = 3;
+	listeMusique["sacrifice"] = 3;
+	listeMusique["sacrifices"] = 3;
+	listeMusique["sacrifier"] = 3;
+	listeMusique["tuer"] = 3;
+	listeMusique["tuez-moi"] = 3;
 
 	//Rêve / dream
 	listeMusique["reve"] = 4;
 	listeMusique["reves"] = 4;
 	listeMusique["rever"] = 4;
+	listeMusique["reveur"] = 4;
+	listeMusique["rêveur"] = 4;
 	listeMusique["songe"] = 4;
 	listeMusique["songes"] = 4;
+	listeMusique["dormir"] = 4;
+	listeMusique["sommeil"] = 4;
 
 	//Famille / familly
 	listeMusique["famille"] = 5;
 	listeMusique["familles"] = 5;
+	listeMusique["pere"] = 5;
+	listeMusique["père"] = 5;
+	listeMusique["mere"] = 5;
+	listeMusique["mère"] = 5;
+	listeMusique["enfant"] = 5;
+	listeMusique["enfants"] = 5;
+	listeMusique["frère"] = 5;
+	listeMusique["frere"] = 5;
+	listeMusique["soeur"] = 5;
 
 	//Paix / Imaginer
 	listeMusique["imagine"] = 6;
@@ -71,28 +95,86 @@ void creerListe()
 
 	//Revolution
 	listeMusique["revolte"] = 11;
+	listeMusique["révolte"] = 11;
 	listeMusique["revolution"] = 11;
+	listeMusique["révolution"] = 11;
 
 	//Meteo
 	listeMusique["meteo"] = 12;
+	listeMusique["météo"] = 12;
 	listeMusique["soleil"] = 12;
 	listeMusique["nuage"] = 12;
 	listeMusique["nuages"] = 12;
-	listeMusique["lune"] = 12;
-	listeMusique["astre"] = 12;
 	listeMusique["pluie"] = 12;
 	listeMusique["pleuvoir"] = 12;
 	listeMusique["orage"] = 12;
 	listeMusique["neige"] = 12;
 	listeMusique["neiger"] = 12;
+	listeMusique["ciel"] = 12;
+	listeMusique["cieux"] = 12;
 
 	//who
 	listeMusique["qui"] = 13;
 
 	//Volonté / Will
 	listeMusique["volonte"] = 14;
+	listeMusique["volonté"] = 14;
 	listeMusique["continuer"] = 14;
 
+	//education
+	listeMusique["éducation"] = 15;
+	listeMusique["education"] = 15;
+	listeMusique["éduquer"] = 15;
+	listeMusique["eduquer"] = 15;
+	listeMusique["école"] = 15;
+	listeMusique["ecole"] = 15;
+
+	//food / nourriture
+	listeMusique["nourriture"] = 16;
+	listeMusique["nourrir"] = 16;
+
+	//game / jeux video
+	listeMusique["jeu"] = 17;
+	listeMusique["jeux"] = 17;
+	listeMusique["jouer"] = 17;
+
+	//hope / espoir
+	listeMusique["espoir"] = 18;
+	listeMusique["espérer"] = 18;
+	listeMusique["esperer"] = 18;
+
+	//movie / films
+	listeMusique["film"] = 19;
+	listeMusique["filmer"] = 19;
+
+	//music / musique
+	listeMusique["musique"] = 20;
+	listeMusique["écouter"] = 20;
+	listeMusique["ecouter"] = 20;
+
+	// night / nuit
+	listeMusique["lune"] = 21;
+	listeMusique["astre"] = 21;
+	listeMusique["astres"] = 21;
+	listeMusique["nuit"] = 21;
+
+	//ocean
+	listeMusique["ocean"] = 22;
+	listeMusique["océan"] = 22;
+	listeMusique["mer"] = 22;
+
+	//religion
+	listeMusique["religion"] = 23;
+	listeMusique["église"] = 23;
+	listeMusique["eglise"] = 23;
+	listeMusique["prier"] = 23;
+	listeMusique["prière"] = 23;
+	listeMusique["priere"] = 23;
+
+	//travel / voyage
+	listeMusique["voyage"] = 24;
+	listeMusique["voyages"] = 24;
+	listeMusique["voyager"] = 24;
 }
 
 
@@ -156,11 +238,11 @@ void musiqueMot(string mot)
 		break;
 
 	case 4:
-		nomMusique = "dream" + to_string(generateNumber(1, 2)) + ".ogg";
+		nomMusique = "dream" + to_string(generateNumber(1, 3)) + ".ogg";
 		break;
 
 	case 5:
-		nomMusique = "family1.ogg";
+		nomMusique = "family" + to_string(generateNumber(1, 1)) + ".ogg";
 		break;
 
 	case 6:
@@ -168,7 +250,7 @@ void musiqueMot(string mot)
 		break;
 
 	case 7:
-		nomMusique = "joy1.ogg";
+		nomMusique = "joy" + to_string(generateNumber(1, 2)) + ".ogg";
 		break;
 
 	case 8:
@@ -180,11 +262,11 @@ void musiqueMot(string mot)
 		break;
 
 	case 10:
-		nomMusique = "queen1.ogg";
+		nomMusique = "queen" + to_string(generateNumber(1, 3)) + ".ogg";
 		break;
 
 	case 11:
-		nomMusique = "revolution1.ogg";
+		nomMusique = "revolution" + to_string(generateNumber(1, 1)) + ".ogg";
 		break;
 
 	case 12:
@@ -199,8 +281,48 @@ void musiqueMot(string mot)
 		nomMusique = "will.ogg";
 		break;
 
+	case 15:
+		nomMusique = "education.ogg";
+		break;
+
+	case 16:
+		nomMusique = "food.ogg";
+		break;
+
+	case 17:
+		nomMusique = "game" + to_string(generateNumber(1, 3)) + ".ogg";
+		break;
+
+	case 18:
+		nomMusique = "hope1.ogg";
+		break;
+
+	case 19:
+		nomMusique = "movie" + to_string(generateNumber(1, 2)) + ".ogg";
+		break;
+
+	case 20:
+		nomMusique = "music1.ogg";
+		break;
+
+	case 21:
+		nomMusique = "night" + to_string(generateNumber(1, 2)) + ".ogg";
+		break;
+
+	case 22:
+		nomMusique = "ocean1.ogg";
+		break;
+
+	case 23:
+		nomMusique = "religion.ogg";
+		break;
+
+	case 24:
+		nomMusique = "travel" + to_string(generateNumber(1, 1)) + ".ogg";
+		break;
+
 	default:
-		cerr << "Choix non renseigne : " << choix << endl;
+		nomMusique = "default.ogg";
 		break;
 	}
 	changerMusique(nomMusique);
