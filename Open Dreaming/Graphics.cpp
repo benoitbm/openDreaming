@@ -120,23 +120,23 @@ void Graphics::display()
 {
 	// Lit le fichier que l'utilisateur souhaite
 	readFile();
-	
+
 	creerListe();
 
 	srand(time(NULL));
-	
+
 	// Taille en pixel de l'image (même si l'affichage peut être plus grand)
 	width = 480;
 	height = 240;
 
 	image = cvCreateImage(cvSize(width, height), 8, 4);
-	
+
 	cvNamedWindow(wndname, CV_WINDOW_NORMAL);
 	cvSetWindowProperty(wndname, CV_WND_PROP_FULLSCREEN, CV_WINDOW_FULLSCREEN);
 
 
 	while (leave)
-	{		
+	{
 		text = recevoirPhrase();
 
 		if (text.empty())
@@ -152,13 +152,26 @@ void Graphics::display()
 	Sleep(350 + generateNumber(0, 250));
 }
 
+void fadeIn(char * wndname, IplImage * dst, IplImage * src)
+{
+	for (int i = 0; i < 10; i++)
+	{
+		double fadein = i / 10.0;
+		cvAddWeighted(src, fadein, dst, fadein, 0, dst);
+		cvShowImage(wndname, dst);
+		cvWaitKey(1);
+		Sleep(100);
+	}
+
+}
+
 int getAverageLum(IplImage * img)
 {
 	int moy = 0;
 	int j = 0;
 	char * data = img->imageData;
 
-	for (int i = 0; i < img->imageSize/3; i++)
+	for (int i = 0; i < img->imageSize / 3; i++)
 	{
 		unsigned char r = data[j++];
 		unsigned char g = data[j++];
@@ -174,7 +187,7 @@ int getAverageLum(IplImage * img)
 		clair = false;
 		musiqueMot("sombre");
 	}
-	else if (moy >= 200 && !clair)
+	else if (moy >= 170 && !clair)
 	{
 		sombre = false;
 		clair = true;
@@ -195,7 +208,6 @@ void Graphics::drawRandomly()
 	int line_type = CV_AA;
 
 	CvSize text_size;
-
 	cvZero(image);
 	cvShowImage(wndname, image);
 
@@ -207,7 +219,7 @@ void Graphics::drawRandomly()
 		text.pop();
 
 		string motlow = mot;
-		
+
 		for (int l = 0; l < mot.length(); ++l)
 			motlow.at(l) = tolower(mot.at(l));
 
@@ -217,10 +229,10 @@ void Graphics::drawRandomly()
 
 		if (motMusical)
 			musiqueMot(motlow);
-		
+
 		bool motCle = false;
 
-		for (int i = 0; i < sizeof(motsClesDessin)/sizeof(motsClesDessin[0]); ++i)
+		for (int i = 0; i < sizeof(motsClesDessin) / sizeof(motsClesDessin[0]); ++i)
 			motCle = motCle || (motlow.compare(motsClesDessin[i]) == 0);
 
 		if (motCle && moy > 75 && moy < 200)
@@ -230,98 +242,95 @@ void Graphics::drawRandomly()
 			{
 				pt1.x = width / 2;
 				pt1.y = height / 2;
-				drawMaison(image, pt1, width/4, width/4, random_color(&rng));
+				drawMaison(image, pt1, width / 4, width / 4, random_color(&rng));
 			}
 		}
-		else if (typeMot() <= 2) //Cas où écriture du mot
+
+		float hauteur_lettre = (cvRandInt(&rng) % 80)*0.02 + .2;
+		float largeur_lettre = (cvRandInt(&rng) % 80)*0.02 + .2;
+
+		word = mot.c_str();
+
+		float taille_l = largeur_lettre * mot.length() * 0.02;
+
+		pt1.x = cvRandInt(&rng) % width;
+
+		if (largeur_lettre > 1.2)
+			largeur_lettre /= 1.4;
+
+		while ((pt1.x + (taille_l * 150) > (0.7 * width)) && pt1.x > 0)
 		{
-			float hauteur_lettre = (cvRandInt(&rng) % 80)*0.02 + .2;
-			float largeur_lettre = (cvRandInt(&rng) % 80)*0.02 + .2;
-
-			word = mot.c_str();
-
-			float taille_l = largeur_lettre * mot.length() * 0.02;
-
 			pt1.x = cvRandInt(&rng) % width;
 
-			if (largeur_lettre > 1.2)
-				largeur_lettre /= 1.4;
-
-			while ((pt1.x + (taille_l * 150) > (0.7 * width)) && pt1.x > 0)
-			{
-				pt1.x = cvRandInt(&rng) % width;
-
-				if ((pt1.x + (taille_l * 150) > (0.9 * width)))
-					pt1.x = 10;
-			}
-
-			pt1.y = cvRandInt(&rng) % height;
-			while (pt1.y < 50 * hauteur_lettre)
-				pt1.y++;
-
-			// Taille des lettres, nombre de traits pour l'épaisseur
-			cvInitFont(&font,
-				cvRandInt(&rng) % 8,
-				hauteur_lettre,
-				largeur_lettre,
-				(cvRandInt(&rng) % 10)*0.1,
-				cvRound(cvRandInt(&rng) % 2),
-				line_type);
-
-			//Affiche les tâches
-
-			image2 = cvQueryFrame(capture);
-			moy = getAverageLum(image2);
-
-			pt2.x = cvRandInt(&rng) % width;
-			pt2.y = cvRandInt(&rng) % height;
-
-			//drawCercle(image, cvPoint(width / 2, height / 2), 100, cvScalar(moy, moy, moy));
-
-			// Affiche le mot
-			cvPutText(image, word, pt1, &font, random_color(&rng));
-			cvShowImage(wndname, image);
-
-			//Dessine des spheres à piques variables
-			drawPolySphere(image, pt2, rand() % 42 + 21, 64 - moy / 2, -2 + moy / 18, random_color(&rng));
+			if ((pt1.x + (taille_l * 150) > (0.9 * width)))
+				pt1.x = 10;
 		}
-		else //Cas la machine pense à une forme
+
+		pt1.y = cvRandInt(&rng) % height;
+		while (pt1.y < 50 * hauteur_lettre)
+			pt1.y++;
+
+		// Taille des lettres, nombre de traits pour l'épaisseur
+		cvInitFont(&font,
+			cvRandInt(&rng) % 8,
+			hauteur_lettre,
+			largeur_lettre,
+			(cvRandInt(&rng) % 10)*0.1,
+			cvRound(cvRandInt(&rng) % 2),
+			line_type);
+
+		//Affiche les tâches
+
+		image2 = cvQueryFrame(capture);
+		moy = getAverageLum(image2);
+
+		pt2.x = cvRandInt(&rng) % width;
+		pt2.y = cvRandInt(&rng) % height;
+
+		//drawCercle(image, cvPoint(width / 2, height / 2), 100, cvScalar(moy, moy, moy));
+
+		// Affiche le mot
+		cvPutText(image, word, pt1, &font, random_color(&rng));
+		cvShowImage(wndname, image);
+
+		//Dessine des spheres à piques variables
+		drawPolySphere(image, pt2, rand() % 42 + 21, 64 - moy / 2, -2 + moy / 18, random_color(&rng));
+
+		int choix = typeForme();
+
+		//Définition des tailles généré par le mot actuel
+		pt1.x = (int)mot.at(0) * 2 % width;
+		pt1.y = mot.length() * 500 % height;
+		pt2.x = 0;
+		for (int b = 0; b < mot.length(); ++b)
+			pt2.x += (int)mot.at(b);
+		pt2.x %= (int)(1.1*width);
+		pt2.y = ((int)mot.at(0) * mot.length()) % (int)(1.1 * height);
+
+		switch (choix)
 		{
-			int choix = typeForme();
+		case 1:
+			drawRectangle(image, pt1, pt2, random_color(&rng));
+			break;
 
-			//Définition des tailles généré par le mot actuel
-			pt1.x = (int)mot.at(0) * 2 % width;
-			pt1.y = mot.length() * 500 % height;
-			pt2.x = 0;
-			for (int b = 0; b < mot.length();++b)
-				pt2.x += (int)mot.at(b);
-			pt2.x %= (int)(1.1*width);
-			pt2.y = ((int)mot.at(0) * mot.length()) % (int)(1.1 * height);
+		case 2:
+			drawLine(image, pt1, pt2, random_color(&rng));
+			break;
 
-			switch (choix)
-			{
-			case 1:
-				drawRectangle(image,pt1, pt2, random_color(&rng));
-				break;
+		case 3:
+			drawCercle(image, pt1, mot.length() * 10, random_color(&rng));
+			break;
 
-			case 2:
-				drawLine(image, pt1, pt2, random_color(&rng));
-				break;
+		case 4:
+			drawPolySphere(image, pt2, rand() % 42 + 21, 64 - moy / 2, -2 + moy / 18, random_color(&rng));
+			break;
 
-			case 3:
-				drawCercle(image, pt1, mot.length()*10, random_color(&rng));
-				break;
-
-			case 4:
-				drawPolySphere(image, pt2, rand() % 42 + 21, 64 - moy / 2, -2 + moy / 18, random_color(&rng));
-				break;
-
-			default:
-				break;
-			}
-
-			cvShowImage(wndname, image);
+		default:
+			break;
 		}
+
+		cvShowImage(wndname, image);
+
 		//------------------
 
 		// Permet de quitter la fonction
@@ -370,6 +379,15 @@ void Graphics::draw()
 
 	for (int i = 0; i < text.size(); i += 0)
 	{
+		if (text.size() == 1)
+		{
+			IplImage * tmp = cvCloneImage(image);
+			fadeIn(wndname, image, tmp);
+			cvShowImage(wndname, image);
+			cvReleaseImage(&tmp);
+		}
+		else
+			cvShowImage(wndname, image);
 
 		float hauteur_lettre = (rand() % 10)*0.01 + 0.95;
 		float largeur_lettre = (rand() % 10)*0.01 + 0.95;
@@ -410,7 +428,7 @@ void Graphics::draw()
 		pt1.x = pos * 20;
 
 		// Positionne les mots
-		if ((pos + 1) * 20> (0.9 * width))
+		if ((pos + 1) * 20 > (0.9 * width))
 		{
 			pt1.x = 5;
 			pos = 0;
@@ -443,7 +461,7 @@ void Graphics::draw()
 		pos += (mot.length() + 1);
 
 		// Permet de quitter la fonction
-		
+
 		if (cvWaitKey(DELAY) >= 0)
 		{
 			key = cvWaitKey(80);
@@ -464,9 +482,9 @@ void Graphics::draw()
 			pt1.y = 30;
 		}
 
-		Sleep(100 + generateNumber(0,100));
+		Sleep(100 + generateNumber(0, 100));
 	}
-	delete [] previousSize;
-	delete [] previousWord;
+	delete[] previousSize;
+	delete[] previousWord;
 	Sleep(350 + generateNumber(0, 250));
 }

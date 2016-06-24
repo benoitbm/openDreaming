@@ -1,5 +1,6 @@
 #include "Draw.hpp"
 
+
 void drawMaison(IplImage* img, CvPoint pos, int size_x, int size_y, CvScalar color)
 {
 	int thickness = (rand() % 5) + 1;
