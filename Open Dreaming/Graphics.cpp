@@ -504,6 +504,10 @@ void Graphics::draw()
 		{
 			countLine = 0;
 			pt1.y = countLine++ * 40 + 30;
+			IplImage * tmp = cvCloneImage(image);
+			fadeIn(wndname, image, tmp);
+			cvShowImage(wndname, image);
+			cvReleaseImage(&tmp);
 			Sleep(150);
 			cvZero(image);
 		}
