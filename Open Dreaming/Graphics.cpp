@@ -84,11 +84,16 @@ bool sombre = false;
 bool clair = false;
 
 Graphics::Graphics()
-	: wndname("Open Dreaming"), image(NULL), image2(NULL), key(' '), leave(true), word(NULL)
-{}
+	: wndname("Open Dreaming"), image(NULL), image2(NULL), capture(NULL), key(' '), leave(true), word(NULL)
+{
+	capture = cvCaptureFromCAM(0);
+}
 
 Graphics::~Graphics()
 {
+	cvReleaseImage(&image);
+	cvReleaseImage(&image2);
+	cvReleaseCapture(&capture);
 	delete wndname;
 }
 
@@ -188,7 +193,6 @@ void Graphics::drawRandomly()
 {
 	int moy = 0;
 	int line_type = CV_AA;
-	CvCapture * capture = cvCaptureFromCAM(0);
 
 	CvSize text_size;
 
@@ -331,10 +335,10 @@ void Graphics::drawRandomly()
 				exit(0);
 			}
 		}
-		Sleep(moy * generateNumber(1, 4) + 100);
+		Sleep(moy * generateNumber(1, 2) + 100);
 	}
-	cvReleaseCapture(&capture);
-	Sleep(moy * generateNumber(1, 5) + 100);
+
+	Sleep(moy * generateNumber(1, 2) + 100);
 }
 
 ///<summary>

@@ -34,6 +34,8 @@ class Graphics
 		IplImage* image;
 		IplImage* image2;
 
+		CvCapture * capture;
+
 		// Structure dans laquelle on stocke les phrases
 		std::queue<std::string> text;
 
