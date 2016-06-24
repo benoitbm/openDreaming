@@ -278,7 +278,10 @@ void Graphics::drawRandomly()
 
 		string motlow = mot;
 
-		for (int l = 0; l < mot.length(); ++l)
+		if (motlow.at(mot.length() - 1) == '.' || motlow.at(mot.length() - 1) == ',')
+			motlow.pop_back();
+
+		for (int l = 0; l < motlow.length(); l++)
 			motlow.at(l) = tolower(mot.at(l));
 
 		bool motMusical = false;
@@ -455,7 +458,10 @@ void Graphics::draw()
 		string mot = text.front();
 
 		string motlow = mot; //Pour la musique
-		for (int l = 0; l < mot.length(); l++)
+		if (motlow.at(mot.length() - 1) == '.' || motlow.at(mot.length() - 1) == ',')
+			motlow.pop_back();
+
+		for (int l = 0; l < motlow.length(); l++)
 			motlow.at(l) = tolower(mot.at(l));
 
 		bool motMusical = false;
