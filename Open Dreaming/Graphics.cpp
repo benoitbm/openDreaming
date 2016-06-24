@@ -17,23 +17,38 @@ string motsClesDessin[] = {
 
 string motsClesMusique[] = {
 	//Birth/Naissance
-	"naitre",
+	"naitre", "naître",
 	"naissance", "naissances",
 	"bebe", "bebes",
+	"bébé", "bébés",
+
+
+	//Dark / desespoir
+	"pleurs",
+	"pleurer",
+	"désespoir", "desespoir",
 
 	//Mort / Death
-	"deceder",
-	"deces",
+	"deceder", "décéder",
+	"deces", "décès",
 	"mort", "morte", "morts", "mortes",
 	"mourir",
+	"sacrifier", "sacrifice", "sacrifices",
+	"tuer", "tuez", "tuez-moi",
 
 	//Rêve / dream
-	"reve", "reves",
-	"rever",
+	"reve", "reves", "rêve", "rêves",
+	"rêver","rever", "reveur", "rêveur",
 	"songe", "songes",
+	"sommeil",
+	"dormir",
 
 	//Famille / familly
 	"famille", "familles",
+	"pere", "père",
+	"mere", "mère",
+	"enfant", "enfants",
+	"frère", "frere", "soeur",
 
 	//Paix / Imagine
 	"paix",
@@ -60,24 +75,67 @@ string motsClesMusique[] = {
 	"royal", "royale", "royaux",
 
 	//revolution
-	"revolte",
-	"revolution",
+	"revolte", "révolte",
+	"revolution", "révolution",
 
 	//meteo
-	"meteo",
+	"meteo", "météo",
 	"soleil",
 	"nuage", "nuages",
-	"lune",
-	"astre",
 	"pluie", "pleuvoir",
 	"orage",
 	"neige", "neiger",
+	"ciel", "cieux",
 
 	//who
 	"qui",
 
 	//will
-	"volonte", "continuer"
+	"volonte", "volonté",
+	"continuer",
+
+	//education
+	"éducation", "education",
+	"éduquer", "eduquer",
+	"école", "ecole",
+
+	//food / nourriture
+	"nourriture",
+	"nourrir",
+
+	//game / jeux video
+	"jeu", "jeux",
+	"jouer",
+
+	//hope / espoir
+	"espoir", "espérer", "esperer",
+
+	//movie / films
+	"film",
+	"filmer",
+
+	//music / musique
+	"musique",
+	"écouter", "ecouter"
+
+	// night / nuit
+	"lune",
+	"astre", "astres"
+	"nuit",
+
+	//ocean
+	"océan", "ocean",
+	"mer",
+
+	//religion
+	"religion",
+	"église", "eglise",
+	"prier", "prière", "priere",
+
+	//travel / voyage
+	"voyage", "voyages",
+	"voyager"
+
 };
 
 bool sombre = false;
