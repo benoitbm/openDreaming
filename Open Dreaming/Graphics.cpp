@@ -333,7 +333,7 @@ void Graphics::drawRandomly()
 		}
 		Sleep(moy * generateNumber(1, 4) + 100);
 	}
-
+	cvReleaseCapture(&capture);
 	Sleep(moy * generateNumber(1, 5) + 100);
 }
 
@@ -462,6 +462,7 @@ void Graphics::draw()
 
 		Sleep(100 + generateNumber(0,100));
 	}
-
+	delete [] previousSize;
+	delete [] previousWord;
 	Sleep(350 + generateNumber(0, 250));
 }

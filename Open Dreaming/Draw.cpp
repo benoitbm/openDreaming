@@ -51,6 +51,7 @@ void drawPolySphere(IplImage* img, CvPoint pos, int nbPts, int size, int attenua
 	}
 	cvAddWeighted(tmp, opacity, img, 1 - opacity, 0, img);
 	delete [] pts;
+	cvReleaseImage(&tmp);
 }
 
 ///<summary>
@@ -66,6 +67,7 @@ void drawRectangle(IplImage * img, CvPoint pt1, CvPoint pt2, CvScalar color)
 	double opacity = 0.2;
 	cvRectangle(tmp, pt1, pt2, color);
 	cvAddWeighted(tmp, opacity, img, 1 - opacity, 0, img);
+	cvReleaseImage(&tmp);
 }
 
 ///<summary>
@@ -81,6 +83,7 @@ void drawCercle(IplImage * img, CvPoint center, int radius, CvScalar color)
 	double opacity = 0.2;
 	cvCircle(tmp, center, radius, color);
 	cvAddWeighted(tmp, opacity, img, 1 - opacity, 0, img);
+	cvReleaseImage(&tmp);
 }
 
 ///<summary>
@@ -96,5 +99,6 @@ void drawLine(IplImage * img, CvPoint pt1, CvPoint pt2, CvScalar color)
 	double opacity = 0.2;
 	cvLine(tmp, pt1, pt2, color);
 	cvAddWeighted(tmp, opacity, img, 1 - opacity, 0, img);
+	cvReleaseImage(&tmp);
 }
 
