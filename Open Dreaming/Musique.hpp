@@ -19,6 +19,7 @@ void pauseMusique();
 void arretMusique();
 void musiqueMot(string mot);
 void creerListe();
+sf::Music * getMusique();
 
 
 #endif // !MUSIQUE_HPP

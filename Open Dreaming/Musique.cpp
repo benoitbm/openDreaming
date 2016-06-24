@@ -204,6 +204,11 @@ void jouerMusique()
 	musique.play();
 }
 
+sf::Music * getMusique()
+{
+	return &musique;
+}
+
 void pauseMusique()
 {
 	musique.pause();

@@ -140,6 +140,7 @@ string motsClesMusique[] = {
 
 bool sombre = false;
 bool clair = false;
+string lastWord;
 
 Graphics::Graphics()
 	: wndname("Open Dreaming"), image(NULL), image2(NULL), capture(NULL), key(' '), leave(true), word(NULL)
@@ -243,13 +244,17 @@ int getAverageLum(IplImage * img)
 	{
 		sombre = true;
 		clair = false;
-		musiqueMot("sombre");
+		if(getMusique()->getStatus() == 3 || lastWord != "sombre")
+			musiqueMot("sombre");
+		lastWord = "sombre";
 	}
 	else if (moy >= 170 && !clair)
 	{
 		sombre = false;
 		clair = true;
-		musiqueMot("lumiere");
+		if (getMusique()->getStatus() == 3 || lastWord != "lumiere")
+			musiqueMot("lumiere");
+		lastWord = "lumiere";
 	}
 	else
 	{
@@ -286,7 +291,10 @@ void Graphics::drawRandomly()
 			motMusical = motMusical || (motlow.compare(motsClesMusique[m]) == 0);
 
 		if (motMusical)
+		{
+			lastWord = motlow;
 			musiqueMot(motlow);
+		}
 
 		bool motCle = false;
 
